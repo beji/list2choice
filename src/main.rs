@@ -3,6 +3,7 @@ use cursive::traits::Scrollable;
 use cursive::view::{Nameable, Resizable};
 use cursive::views::{Dialog, EditView, LinearLayout, SelectView};
 use cursive::Cursive;
+use rayon::prelude::*;
 use static_init::dynamic;
 use std::io::{self, BufRead, Write};
 
@@ -34,7 +35,7 @@ fn on_edit(ctx: &mut Cursive, query: &str, _cursor: usize) {
 
 fn search_fn<'a>(items: &'a Vec<String>, query: &'a str) -> Vec<String> {
     let result: Vec<String> = items
-        .into_iter()
+        .into_par_iter()
         .filter_map(|item| {
             let item = item.to_lowercase();
             let query = query.to_lowercase();
