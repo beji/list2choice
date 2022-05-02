@@ -1,3 +1,4 @@
+use cursive::event::Key;
 use cursive::theme::{BorderStyle, Color, PaletteColor};
 use cursive::traits::Scrollable;
 use cursive::view::{Nameable, Resizable};
@@ -51,6 +52,8 @@ fn search_fn<'a>(items: &'a Vec<String>, query: &'a str) -> Vec<String> {
 
 fn main() {
     let mut tui = cursive::default();
+
+    tui.add_global_callback(Key::Esc, |ctx| ctx.quit());
 
     tui.update_theme(|theme| {
         theme.shadow = false;
